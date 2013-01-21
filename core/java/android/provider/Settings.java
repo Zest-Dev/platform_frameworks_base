@@ -2324,6 +2324,11 @@ public final class Settings {
          * @hide
          */
         public static final String MODE_VOLUME_OVERLAY = "mode_volume_overlay";
+        
+        /**
+         * Ability to enable/disable Daul pane prefs.
+         */
+        public static final String DUAL_PANE_PREFS = "dual_pane_prefs";
 
         /**
          * Boolean value whether to link ringtone and notification volumes
