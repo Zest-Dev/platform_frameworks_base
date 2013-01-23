@@ -109,11 +109,15 @@ public class KeyguardSelectorView extends LinearLayout implements KeyguardSecuri
                 } else {
                     target -= 1 + mTargetOffset;
                     if (target < mStoredTargets.length && mStoredTargets[target] != null) {
-                        try {
-                            Intent launchIntent = Intent.parseUri(mStoredTargets[target], 0);
-                            mActivityLauncher.launchActivity(launchIntent, false, true, null, null);
-                            return;
-                        } catch (URISyntaxException e) {
+                        if (mStoredTargets[target].equals(GlowPadView.EMPTY_TARGET)) {
+                            mCallback.dismiss(false);
+                        } else {
+                            try {
+                                Intent launchIntent = Intent.parseUri(mStoredTargets[target], 0);
+                                mActivityLauncher.launchActivity(launchIntent, false, true, null, null);
+                                return;
+                            } catch (URISyntaxException e) {
+                            }
                         }
                     }
                 }
@@ -390,7 +394,7 @@ public class KeyguardSelectorView extends LinearLayout implements KeyguardSecuri
                             storedDraw.add(new TargetDrawable(res, 0));
                         }
                     } else {
-                        storedDraw.add(new TargetDrawable(res, 0));
+                        storedDraw.add(new TargetDrawable(res, getLayeredDrawable(unlockActiveDrawable, blankInActiveDrawable, tmpInset, true)));
                     }
                 } else {
                     storedDraw.add(new TargetDrawable(res, 0));
