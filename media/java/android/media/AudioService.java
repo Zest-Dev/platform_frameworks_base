@@ -471,6 +471,26 @@ public class AudioService extends IAudioService.Stub implements OnFinished {
             "ro.config.vc_call_vol_steps",
            MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL]);
 
+        MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 15);
+
+        if (MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] != 15) {
+            switch (MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC]) {
+                    case 25:
+                            MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 25);
+                    break;
+                    case 30:
+                            MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 30);
+                    break;
+                    case 45:
+                            MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 45);
+                    break;
+            }
+        }
+
         sSoundEffectVolumeDb = context.getResources().getInteger(
                 com.android.internal.R.integer.config_soundEffectVolumeDb);
 

@@ -2315,6 +2315,14 @@ public final class Settings {
          */
         public static final String POINTER_SPEED = "pointer_speed";
 
+
+        /**
+         * Able to change MEDIA volume steps (default is 15)
+         * @hide
+         */
+        public static final String AUDIO_VOLUME_STEPS = "audio_volume_steps";
+
+        
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -5378,6 +5386,7 @@ public final class Settings {
          * @hide
          */
         public static final String AUDIO_SAFE_VOLUME_STATE = "audio_safe_volume_state";
+
 
         /**
          * URL for tzinfo (time zone) updates
