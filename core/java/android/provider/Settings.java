@@ -4363,7 +4363,6 @@ public final class Settings {
         public static final String POWER_SOUNDS_ENABLED = "power_sounds_enabled";
 
         /**
-<<<<<<< HEAD
          * URI for the "wireless charging started" sound.
          * @hide
          */
@@ -4371,8 +4370,6 @@ public final class Settings {
                 "wireless_charging_started_sound";
 
         /**
-=======
->>>>>>> ae925b4... (7) Framework: Forward port Long press back to kill app
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
