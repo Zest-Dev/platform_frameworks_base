@@ -351,7 +351,6 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
         context.getContentResolver().registerContentObserver(
                 Settings.System.getUriFor(Settings.System.MODE_VOLUME_OVERLAY), false,
                 mSettingsObserver);
-        mMoreButton.setOnClickListener(this);
 
         boolean masterVolumeOnly = context.getResources().getBoolean(
                 com.android.internal.R.bool.config_useMasterVolume);
@@ -360,6 +359,7 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
 
         mPlayMasterStreamTones = masterVolumeOnly && masterVolumeKeySounds;
 
+        mMoreButton.setOnClickListener(this);
         listenToRingerMode();
     }
 
@@ -678,6 +678,7 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
                     if (mCurrentOverlayStyle == VOLUME_OVERLAY_EXPANDABLE) {
                         hideSlider(mActiveStreamType);
                     }
+                    reorderSliders(streamType);
                 }
                 onShowVolumeChanged(streamType, flags);
             }
@@ -809,6 +810,7 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
             }
         }
 
+        // Only Show if style needs it
         if (!mDialog.isShowing() && mCurrentOverlayStyle != VOLUME_OVERLAY_NONE) {
             int stream = (streamType == AudioService.STREAM_REMOTE_MUSIC) ? -1 : streamType;
             // when the stream is for remote playback, use -1 to reset the stream type evaluation
@@ -1136,7 +1138,7 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
     public void onClick(View v) {
         if (v == mMoreButton) {
             expand();
-            } else if (v instanceof ImageView) {
+        } else if (v instanceof ImageView) {
             Intent volumeSettings = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
             volumeSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             forceTimeout();
