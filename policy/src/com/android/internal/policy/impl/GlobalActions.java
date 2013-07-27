@@ -247,7 +247,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 }
 
                 public boolean onLongPress() {
-                    mWindowManagerFuncs.rebootSafeMode(true);
+                    mWindowManagerFuncs.shutdown(true);
                     return true;
                 }
 
@@ -259,6 +259,23 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                     return true;
                 }
             });
+
+        // next: reboot
+        if (Settings.Secure.getInt(mContext.getContentResolver(),
+                Settings.Secure.REBOOT_IN_POWER_MENU, 0) != 0) {
+        mItems.add(
+            new SinglePressAction(R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
+                public void onPress() {
+                    mWindowManagerFuncs.reboot();
+                }
+                public boolean showDuringKeyguard() {
+                    return true;
+                }
+                public boolean showBeforeProvisioning() {
+                    return true;
+                }
+            });
+	}
 
         // next: airplane mode
         mItems.add(mAirplaneModeOn);
@@ -394,6 +411,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mAirplaneModeOn.updateState(mAirplaneState);
         mAdapter.notifyDataSetChanged();
         mDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+        mDialog.setTitle(R.string.global_actions);
         if (mShowSilentToggle) {
             IntentFilter filter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
             mContext.registerReceiver(mRingerModeReceiver, filter);

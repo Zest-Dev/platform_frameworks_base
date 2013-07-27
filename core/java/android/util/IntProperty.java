@@ -44,5 +44,4 @@ public abstract class IntProperty<T> extends Property<T, Integer> {
     final public void set(T object, Integer value) {
         setValue(object, value.intValue());
     }
-
 }

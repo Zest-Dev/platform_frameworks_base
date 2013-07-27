@@ -1496,4 +1496,25 @@
     <string name="app_no_restricted_accounts" msgid="4011285085817350390">"이 애플리케이션은 제한된 프로필의 계정을 지원하지 않습니다."</string>
     <string name="app_not_found" msgid="3429141853498927379">"이 작업을 처리하는 애플리케이션을 찾을 수 없습니다."</string>
     <string name="revoke" msgid="5404479185228271586">"취소"</string>
+
+    <!-- Extended Reboot menu -->
+    <!-- Button to reboot the phone, within the Phone Options dialog -->
+    <string name="reboot_system" product="tablet">재시작 옵션</string>
+    <string name="reboot_system" product="default">재시작 옵션</string>
+    <!-- Reboot Progress Dialog. This is shown if the user chooses to reboot the phone. -->
+    <!-- label for item that screenshots in phone options dialog -->
+    <string name="global_action_screenshot">스크린샷 찍기</string>
+    <!-- Button to reboot the phone, within the Reboot Options dialog -->
+    <string name="reboot_reboot">재시작</string>
+    <!-- Button to reboot the phone into recovery, within the Reboot Options dialog -->
+    <string name="reboot_recovery">리커버리</string>
+    <!-- Button to reboot the phone into bootloader, within the Reboot Options dialog -->
+    <string name="reboot_bootloader">부트로더</string>
+    <!-- Button to reboot the phone into bootmenu, within the Reboot Options dialog -->
+    <!-- Reboot Progress Dialog. This is shown if the user chooses to reboot the phone. -->
+    <string name="reboot_progress">재시작 중\u2026</string>
+    <!-- Reboot Confirmation Dialog. When the user chooses to reboot the phone, there will be a confirmation dialog. This is the message. -->
+    <string name="reboot_confirm">기기가 재시작 됩니다.</string>
+    <!-- label for item that reboots the phone in phone options dialog -->
+    <string name="global_action_reboot">재시작</string>
 </resources>
