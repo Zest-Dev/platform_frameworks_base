@@ -466,27 +466,46 @@ public class AudioService extends IAudioService.Stub implements OnFinished {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         mHasVibrator = vibrator == null ? false : vibrator.hasVibrator();
 
-       // Intialized volume
-        MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = SystemProperties.getInt(
-            "ro.config.vc_call_vol_steps",
-           MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL]);
+        // Intialized volume
 
+        // CALL
+        MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 5);
+
+        if (MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] != 5) {
+            switch (MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL]) {
+                    case 7:
+                            MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 7);
+                    break;
+                    case 10:
+                            MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 10);
+                    break;
+                    case 15:
+                            MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 15);
+                    break;
+            }
+        }
+
+        // MEDIA
         MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
-            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 15);
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_MEDIA, 15);
 
         if (MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] != 15) {
             switch (MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC]) {
                     case 25:
                             MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
-            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 25);
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_MEDIA, 25);
                     break;
                     case 30:
                             MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
-            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 30);
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_MEDIA, 30);
                     break;
                     case 45:
                             MAX_STREAM_VOLUME[AudioSystem.STREAM_MUSIC] = 
-            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS, 45);
+            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_MEDIA, 45);
                     break;
             }
         }

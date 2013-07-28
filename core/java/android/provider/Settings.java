@@ -2341,7 +2341,13 @@ public final class Settings {
          * Able to change MEDIA volume steps (default is 15)
          * @hide
          */
-        public static final String AUDIO_VOLUME_STEPS = "audio_volume_steps";
+        public static final String AUDIO_VOLUME_STEPS_MEDIA = "audio_volume_steps_media";
+
+        /**
+         * Able to change CALL volume steps (default is 5)
+         * @hide
+         */
+        public static final String AUDIO_VOLUME_STEPS_CALL = "audio_volume_steps_call";
 
         /**
          * @hide
@@ -2369,6 +2375,12 @@ public final class Settings {
          * @hide
          */
         public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
+
+        /**
+         * Whether to show the traffic status
+         * @hide
+         */
+        public static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
