@@ -478,14 +478,6 @@ public class AudioService extends IAudioService.Stub implements OnFinished {
                             MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
             Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 7);
                     break;
-                    case 10:
-                            MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
-            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 10);
-                    break;
-                    case 15:
-                            MAX_STREAM_VOLUME[AudioSystem.STREAM_VOICE_CALL] = 
-            Settings.System.getInt(mContentResolver, Settings.System.AUDIO_VOLUME_STEPS_CALL, 15);
-                    break;
             }
         }
 
