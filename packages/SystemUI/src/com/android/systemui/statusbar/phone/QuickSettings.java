@@ -360,6 +360,20 @@ class QuickSettings {
         mDynamicSpannedTiles.add(timeTile);
         */
 
+        // sync tile
+        final QuickSettingsBasicTile syncTile = new QuickSettingsBasicTile(mContext);
+        syncTile.setImageResource(R.drawable.ic_qs_sync_off);
+        syncTile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSettingsActivity(android.provider.Settings.ACTION_SYNC_SETTINGS);
+            }
+        });
+        mModel.addSyncTile(syncTile,
+                new QuickSettingsModel.BasicRefreshCallback(syncTile));
+        parent.addView(syncTile);
+        mDynamicSpannedTiles.add(syncTile);
+
         // Settings tile
         final QuickSettingsBasicTile settingsTile = new QuickSettingsBasicTile(mContext);
         settingsTile.setImageResource(R.drawable.ic_qs_settings);
@@ -382,32 +396,17 @@ class QuickSettings {
         wifiTile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startSettingsActivity(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                mWifiManager.setWifiEnabled(!mWifiManager.isWifiEnabled());
             }
         });
         if (LONG_PRESS_TOGGLES) {
             wifiTile.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final boolean enable =
-                            (mWifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLED);
-                    new AsyncTask<Void, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Void... args) {
-                            // Disable tethering if enabling Wifi
-                            final int wifiApState = mWifiManager.getWifiApState();
-                            if (enable && ((wifiApState == WifiManager.WIFI_AP_STATE_ENABLING) ||
-                                           (wifiApState == WifiManager.WIFI_AP_STATE_ENABLED))) {
-                                mWifiManager.setWifiApEnabled(null, false);
-                            }
-
-                            mWifiManager.setWifiEnabled(enable);
-                            return null;
-                        }
-                    }.execute();
-                    wifiTile.setPressed(false);
+                    startSettingsActivity(android.provider.Settings.ACTION_WIFI_SETTINGS);
                     return true;
-                }} );
+                }
+            });
         }
         mModel.addWifiTile(wifiTile, new QuickSettingsModel.RefreshCallback() {
             @Override

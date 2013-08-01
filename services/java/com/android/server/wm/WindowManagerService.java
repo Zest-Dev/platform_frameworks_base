@@ -6459,8 +6459,6 @@ public class WindowManagerService extends IWindowManager.Stub
             displayInfo.getAppMetrics(mDisplayMetrics, null);
             mDisplayManagerService.setDisplayInfoOverrideFromWindowManager(
                     displayContent.getDisplayId(), displayInfo);
-
-            mAnimator.setDisplayDimensions(m.dw, m.dh, m.appWidth, m.appHeight);
         }
 
         if (false) {

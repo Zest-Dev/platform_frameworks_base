@@ -259,6 +259,10 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
     private RefreshCallback mSettingsCallback;
     private State mSettingsState = new State();
 
+    private QuickSettingsTileView mSyncTile;
+    private RefreshCallback mSyncCallback;
+    private State mSyncState = new State();
+
     public QuickSettingsModel(Context context) {
         mContext = context;
         mHandler = new Handler();
@@ -290,10 +294,23 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
 
     void updateResources() {
         refreshSettingsTile();
+        refreshSyncTile();
         refreshBatteryTile();
         refreshBluetoothTile();
         refreshBrightnessTile();
         refreshRotationLockTile();
+    }
+
+    // Sync
+    void addSyncTile(QuickSettingsTileView view, RefreshCallback cb) {
+        mSyncTile = view;
+        mSyncCallback = cb;
+        mSyncCallback.refreshView(mSyncTile, mSyncState);
+    }
+    void refreshSyncTile() {
+        Resources r = mContext.getResources();
+        mSyncState.label = r.getString(R.string.quick_settings_sync_label);
+        mSyncCallback.refreshView(mSyncTile, mSyncState);
     }
 
     // Settings
