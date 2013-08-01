@@ -2203,24 +2203,6 @@ public final class Settings {
         public static final String DOCK_SOUNDS_ENABLED = Global.DOCK_SOUNDS_ENABLED;
 
         /**
-         * Whether to play sounds when the keyguard is shown and dismissed.
-         * @hide
-         */
-        public static final String LOCKSCREEN_SOUNDS_ENABLED = "lockscreen_sounds_enabled";
-
-        /**
-         * Whether the lockscreen should be completely disabled.
-         * @hide
-         */
-        public static final String LOCKSCREEN_DISABLED = "lockscreen.disabled";
-
-        /**
-         * Stores values for custom lockscreen targets
-         * @hide
-         */
-        public static final String LOCKSCREEN_TARGETS = "lockscreen_targets";
-
-        /**
          * @deprecated Use {@link android.provider.Settings.Global#LOW_BATTERY_SOUND}
          * instead
          * @hide
@@ -2275,6 +2257,24 @@ public final class Settings {
          */
         @Deprecated
         public static final String UNLOCK_SOUND = Global.UNLOCK_SOUND;
+
+        /**
+         * Whether to play sounds when the keyguard is shown and dismissed.
+         * @hide
+         */
+        public static final String LOCKSCREEN_SOUNDS_ENABLED = "lockscreen_sounds_enabled";
+
+        /**
+         * Whether the lockscreen should be completely disabled.
+         * @hide
+         */
+        public static final String LOCKSCREEN_DISABLED = "lockscreen.disabled";
+
+        /**
+         * Stores values for custom lockscreen targets
+         * @hide
+         */
+        public static final String LOCKSCREEN_TARGETS = "lockscreen_targets";
 
         /**
          * Receive incoming SIP calls?
@@ -2393,6 +2393,25 @@ public final class Settings {
          * @hide
          */
         public static final String QS_QUICK_PULLDOWN = "qs_quick_pulldown";
+
+        /**
+         * Whether power menu expanded desktop is enabled
+         * @hide
+         */
+        public static final String POWER_MENU_EXPANDED_DESKTOP_ENABLED = "power_menu_expanded_desktop_enabled";
+
+         /**
+         * Whether Expanded desktop is currently running or not
+         * @hide
+         */
+        public static final String EXPANDED_DESKTOP_STATE = "expanded_desktop_state";
+
+         /**
+         * Expanded desktop mode
+         * 0 = none, 1 = hide only navbar, 2 = hide only statusbar, 3 = hide both
+         * @hide
+         */
+        public static final String EXPANDED_DESKTOP_MODE = "expanded_desktop_mode";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
