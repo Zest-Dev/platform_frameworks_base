@@ -141,20 +141,13 @@ class HTML5VideoViewProxy extends Handler
             }
         }
 
-        // When a WebView is paused, we also want to pause the video in it. (won't be used any more, use suspendAndDispatch())
+        // When a WebView is paused, we also want to pause the video in it.
         public static void pauseAndDispatch() {
             if (mHTML5VideoView != null) {
                 // Check if video was paused after it exited fullscreen in playing state
                 if (mExitFullscreenState == VideoPlayer.EXIT_FULLSCREEN_STATE_PLAYING)
                     mExitFullscreenState = VideoPlayer.EXIT_FULLSCREEN_STATE_PAUSED;
                 mHTML5VideoView.pauseAndDispatch(mCurrentProxy);
-            }
-        }
-
-        // When a WebView is paused, we need to suspend the player (release the decoder only)
-        public static void suspendAndDispatch() {
-            if (mHTML5VideoView != null) {
-                mHTML5VideoView.suspendAndDispatch(mCurrentProxy);
             }
         }
 
@@ -198,7 +191,8 @@ class HTML5VideoViewProxy extends Handler
 
         public static void exitFullScreenVideo(HTML5VideoViewProxy proxy,
                 WebViewClassic webView) {
-            if (!mHTML5VideoView.fullScreenExited() && mHTML5VideoView.isFullScreenMode()) {
+            if (mHTML5VideoView != null
+                && !mHTML5VideoView.fullScreenExited() && mHTML5VideoView.isFullScreenMode()) {
                 WebChromeClient client = webView.getWebChromeClient();
                 if (client != null) {
                     client.onHideCustomView();
@@ -268,9 +262,6 @@ class HTML5VideoViewProxy extends Handler
             if (mCurrentProxy == proxy) {
                 // Here, we handle the case when we keep playing with one video
                 if (!mHTML5VideoView.isPlaying()) {
-                    if (mHTML5VideoView.isSuspended()) {
-                        mHTML5VideoView.prepareDataAndDisplayMode(proxy);
-                    }
                     mHTML5VideoView.seekTo(time);
                     mHTML5VideoView.start();
                 }
@@ -334,16 +325,6 @@ class HTML5VideoViewProxy extends Handler
     @Override
     public void onPrepared(MediaPlayer mp) {
         VideoPlayer.onPrepared();
-        Message msg = Message.obtain(mWebCoreHandler, PREPARED);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("dur", new Integer(mp.getDuration()));
-        map.put("width", new Integer(mp.getVideoWidth()));
-        map.put("height", new Integer(mp.getVideoHeight()));
-        msg.obj = map;
-        mWebCoreHandler.sendMessage(msg);
-    }
-
-    public void resume(MediaPlayer mp) {
         Message msg = Message.obtain(mWebCoreHandler, PREPARED);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("dur", new Integer(mp.getDuration()));
@@ -802,10 +783,6 @@ class HTML5VideoViewProxy extends Handler
 
     public void pauseAndDispatch() {
         VideoPlayer.pauseAndDispatch();
-    }
-
-    public void suspendAndDispatch() {
-        VideoPlayer.suspendAndDispatch();
     }
 
     public void enterFullScreenVideo(int layerId, String url) {
